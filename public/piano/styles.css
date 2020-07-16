@@ -1,0 +1,34 @@
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20pt;
+}
+
+.piano-white {
+    display: flex;
+    z-index: 2;
+}
+
+.piano-white button {
+    height: 140px;
+    width: 48px;
+    padding-top: 100px;
+    margin: 1px;
+}
+
+.piano-black {
+    display: flex;
+    position: absolute;
+    z-index: 3;
+}
+
+.piano-black button {
+    font-size: x-small;
+    height: 75px;
+    width: 30px;
+    padding-top: 50px;
+}
+
+.piano-black span {
+    display: block;
+}
