@@ -25,21 +25,22 @@
             <!-- <button id="color-rgb" class="color" data-toggle="tooltip" data-placement="top" title="Press 'T' to toggle.">COLOR</button>. -->
             <button id="color-rgb" class="color">COLOR</button>.
         </div>
-        <div id="pick">
+        <div id="pick" data-toggle="tooltip" data-placement="top" title="Click here for a new game.">
             - - - - -
         </div>
         <div id="answers">
             <table>
                 <tr>
-                    <td id="a" class="answer">a. to.</td>
-                    <td id="b" class="answer">b. be.</td>
+                    <td class="answer">a. <span id="a">to.</span></td>
+                    <td class="answer">b. <span id="b">be.</span></td>
                 </tr>
                 <tr>
-                    <td id="c" class="answer">c. implemented.</td>
-                    <td id="d" class="answer">d. soon.</td>
+                    <td class="answer">c. <span id="c">implemented.</span></td>
+                    <td class="answer">d. <span id="d">soon.</span></td>
                 </tr>
             </table>
         </div>
+        <hr>
         <div id="controls">
             <p>Press <span class="key">T</span> to <a href="#" id="togglemode">toggle the mode</a>.</p>
             <p>Press <span class="key">N</span> for a <a href="#" id="newgame">new game</a>.</p>

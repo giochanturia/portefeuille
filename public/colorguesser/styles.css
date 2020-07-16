@@ -2,6 +2,14 @@
 
 body {
     font-family: 'Cutive Mono', monospace;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
 }
 
 .container {
@@ -28,6 +36,7 @@ body {
     border: 0px solid black;
     border-radius: 10px;
     padding: 0px 20px;
+    cursor: crosshair;
 }
 
 #difficulty {
@@ -65,12 +74,19 @@ button:focus {
 }
 
 #answers td {
-    width: 200px;
+    width: fit-content;
     cursor: pointer;
+    /* border: 1px dashed gray; */
+    padding: 10px;
 }
 
 #answers td:hover {
     color: #006699;
+}
+
+#answers td span {
+    border: 0px solid white;
+    border-radius: 5px;
 }
 
 #controls {
