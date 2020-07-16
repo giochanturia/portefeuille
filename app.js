@@ -12,5 +12,5 @@ app.get("/", function(req, res){
 });
 
 app.listen(8000, process.env.IP, function(){
-	console.log("სერვერი ჩაირთო!");
+	console.log("Server started");
 });
