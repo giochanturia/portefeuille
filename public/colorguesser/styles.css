@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+
+body {
+    font-family: 'Cutive Mono', monospace;
+}
+
+.container {
+    display: block;
+    justify-content: space-evenly;
+    padding: 25px 50px;
+    margin: 25px auto;
+    border: 1px dashed gray;
+    border-radius: 24px;
+}
+
+.container div {
+    display: flex;
+    width: fit-content;
+    margin: 20px auto;
+}
+
+#question {
+    font-size: 36pt;
+}
+
+#pick {
+    font-size: 28pt;
+    border: 0px solid black;
+    border-radius: 10px;
+    padding: 0px 20px;
+}
+
+#difficulty {
+    align-items: center;
+}
+
+#color-rgb {
+    display: flex;
+    justify-content: space-evenly;
+    cursor: pointer;
+    width: 200px;
+    border: 0px solid black;
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+}
+
+#color-rgb span {
+    display: block;
+    width: 200px;
+}
+
+.color {
+    color: #393e46;
+    background-color: #eeeeee;
+}
+
+.rgb {
+    color: #eeeeee;
+    background-color: #393e46;
+}
+
+button:focus {
+    outline: 0;
+}
+
+#answers td {
+    width: 200px;
+    cursor: pointer;
+}
+
+#answers td:hover {
+    color: #006699;
+}
+
+#controls {
+    display: block;
+    margin-left: 0;
+    padding: 0;
+}
+
+#controls p {
+    margin: 0;
+}
+
+.key {
+    border: 1px solid gray;
+    padding: 0px 3px;
+    border-radius: 2px;
+}
