@@ -45,7 +45,7 @@ function newgame() {
     green = Math.floor(Math.random()*256);
     var pickelement = document.getElementById('pick');
     if(gametype) {
-        pickelement.innerHTML = "RED:"+red+", GREEN:"+green+", BLUE:"+blue+".";
+        pickelement.innerHTML = "("+red+", "+green+", "+blue+")";
         pickelement.setAttribute("style", "background-color:none;");
     } else {
         pickelement.innerHTML = "color to guess";
@@ -84,10 +84,10 @@ function newgame() {
             tempgreen = greenmin + Math.floor(Math.random()*(greenmax-greenmin));
         }
         if(gametype) {
-            document.getElementById(ans).innerHTML = 'RED: ???, GREEN: ???, BLUE: ???.';
+            document.getElementById(ans).innerHTML = 'rgb(???, ???, ???)';
             document.getElementById(ans).setAttribute("style", "color: rgb("+tempred+","+tempgreen+","+tempblue+"); background-color:rgb("+tempred+","+tempgreen+","+tempblue+");");
         } else {
-            document.getElementById(ans).innerHTML = "RED:"+tempred+", GREEN:"+tempgreen+", BLUE:"+tempblue+".";
+            document.getElementById(ans).innerHTML = "("+tempred+", "+tempgreen+", "+tempblue+")";
             document.getElementById(ans).setAttribute("style", "background-color:none;");
         }
     }
