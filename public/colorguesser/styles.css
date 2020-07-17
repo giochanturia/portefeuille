@@ -13,7 +13,8 @@ body {
 }
 
 .container {
-    display: block;
+    display: fixed;
+    min-width: 900px;
     justify-content: space-evenly;
     padding: 25px 50px;
     margin: 25px auto;
