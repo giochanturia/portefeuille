@@ -18,8 +18,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-    <!-- MATHJAX -->
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <!-- CHART -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <!-- REGRESSION -->
@@ -37,11 +35,25 @@
     </div>
     <div id="sidebar">
         <button type="button" class="btn btn-light" id="sidebar-btn" onclick="toggleNav()" data-toggle="tooltip"
-            data-placement="right" title="Press 'S' to toggle sidebar."><img src="img/sidebar.svg"></button>
+            data-placement="right" title="Press 'S' to toggle sidebar."><img
+                src="img/sidebar.svg"></button>
         <div id="sidebar-content">
+            <!-- <h3>Fitter</h3> -->
+            <!-- DATA -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Function</label>
+                    <label class="input-group-text" id="inputGroupFileAddon01">Data:</label>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                        aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                </div>
+            </div>
+            <!-- FUNCTION -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Function:</label>
                 </div>
                 <select class="custom-select" id="inputGroupSelect01">
                     <option value="1" selected>Linear</option>
@@ -52,15 +64,16 @@
                 </select>
             </div>
             <center>
-                <h3 id="function-formula">$y = {\color{red}a_1}x + {\color{red}a_0}$</h3>
+                <p id="function-formula" style="margin: 0px;">$y = {\color{red}a}x + {\color{red}b}$</p>
             </center>
             <hr>
-            <h3>Parameters:</h3>
+            <!-- PARAMETERS -->
+            <p>Parameters:</p>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">$a_0$</label>
+                    <label class="input-group-text" for="inputGroupSelect01">$a$</label>
                     <div class="input-group-text">
-                        <input type="checkbox" aria-label="Checkbox for following text input">
+                        <input type="checkbox" aria-label="Checkbox for following text input" checked>
                     </div>
                     <button class="btn btn-outline-secondary" type="button">-</button>
                 </div>
@@ -72,9 +85,9 @@
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">$a_1$</label>
+                    <label class="input-group-text" for="inputGroupSelect01">$b$</label>
                     <div class="input-group-text">
-                        <input type="checkbox" aria-label="Checkbox for following text input">
+                        <input type="checkbox" aria-label="Checkbox for following text input" checked>
                     </div>
                     <button class="btn btn-outline-secondary" type="button">-</button>
                 </div>
@@ -84,7 +97,7 @@
                     <button class="btn btn-outline-secondary" type="button">+</button>
                 </div>
             </div>
-            <button type="button" class="btn btn-primary">Fit</button>
+            <button type="button" class="btn btn-danger">Fit</button>
             <hr>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -106,6 +119,11 @@
         </div>
     </div>
 </body>
+
 <script src="scripts.js"></script>
+<!-- MATHJAX -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> -->
 
 </html>

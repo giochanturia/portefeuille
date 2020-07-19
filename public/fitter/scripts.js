@@ -1,12 +1,61 @@
 $(function () {
     $('[data-toggle="tooltip"]').tooltip({
-        trigger : 'hover'
+        trigger: 'hover'
     })
 })
 
 MathJax = {
-    tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]}
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
 };
+
+var formulas = [
+    "$y = {\\color{red}a}x + {\\color{red}b}$",
+    "$y = {\\color{red}a_0} + \\dots + {\\color{red}a_n}x^n$",
+    "$y = {\\color{red}a} e^{{\\color{red}b}x}$",
+    "$y = {\\color{red}a} + {\\color{red}b} \\log x$",
+    "$y = {\\color{red}a} x^{\\color{red}b}$"
+]
+
+function updateFormulas() {
+    var ddl = document.getElementById("inputGroupSelect01");
+    var selectedValue = parseInt(ddl.options[ddl.selectedIndex].value) - 1;
+    document.getElementById("function-formula").innerHTML = formulas[selectedValue];
+    MathJax.typeset();
+    // MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'function-formula']);
+    // MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+}
+
+/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
+function openNav() {
+    document.getElementById("sidebar").style.left = "0px";
+}
+
+/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
+function closeNav() {
+    document.getElementById("sidebar").style.left = "-300px";
+}
+
+
+function toggleNav() {
+    if (parseInt(window.getComputedStyle(document.getElementById("sidebar")).getPropertyValue('left')) == 0) {
+        closeNav();
+    } else {
+        openNav();
+    }
+}
+
+document.addEventListener("keyup", (e) => {
+    // if (e.keyCode === 27) { closeNav(); }    // Esc on keyboard.
+    if (e.keyCode === 83) { toggleNav(); }    // 's' on keyboard.
+});
+
+document.getElementById("inputGroupSelect01").addEventListener("change", (e) => {
+    updateFormulas();
+});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - -
+// CANVAS:
 
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
@@ -44,27 +93,4 @@ var myChart = new Chart(ctx, {
             }]
         }
     }
-});
-
-/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
-function openNav() {
-    document.getElementById("sidebar").style.left = "0px";
-  }
-  
-  /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
-  function closeNav() {
-    document.getElementById("sidebar").style.left = "-300px";
-}
-
-
-function toggleNav() {
-    if(parseInt(window.getComputedStyle(document.getElementById("sidebar")).getPropertyValue('left')) == 0) {
-        closeNav();
-    } else {
-        openNav();
-    }
-}
-
-document.addEventListener("keyup", (e) => {
-    if (e.keyCode === 83) {toggleNav();}    // 's' on keyboard.
 });
