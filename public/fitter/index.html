@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitter</title>
+    <!-- JQUERY and POPPER -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <!-- MATHJAX -->
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- CHART -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- REGRESSION -->
+    <script src="regression.js"></script>
+    <!-- STYLES -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel='icon' href='favicon.ico' type='image/x-icon'>
+</head>
+
+<body>
+    <div class="container">
+        <div id="plot">
+            <canvas id="myChart" width="700" height="500"></canvas>
+        </div>
+    </div>
+    <div id="sidebar">
+        <button type="button" class="btn btn-light" id="sidebar-btn" onclick="toggleNav()" data-toggle="tooltip"
+            data-placement="right" title="Press 'S' to toggle sidebar."><img src="img/sidebar.svg"></button>
+        <div id="sidebar-content">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Function</label>
+                </div>
+                <select class="custom-select" id="inputGroupSelect01">
+                    <option value="1" selected>Linear</option>
+                    <option value="2">Polynomial</option>
+                    <option value="3">Exponential</option>
+                    <option value="4">Logarithmic</option>
+                    <option value="5">Power</option>
+                </select>
+            </div>
+            <center>
+                <h3 id="function-formula">$y = {\color{red}a_1}x + {\color{red}a_0}$</h3>
+            </center>
+            <hr>
+            <h3>Parameters:</h3>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">$a_0$</label>
+                    <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                    <button class="btn btn-outline-secondary" type="button">-</button>
+                </div>
+                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
+                    aria-describedby="button-addon1">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary" type="button">+</button>
+                </div>
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">$a_1$</label>
+                    <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input">
+                    </div>
+                    <button class="btn btn-outline-secondary" type="button">-</button>
+                </div>
+                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
+                    aria-describedby="button-addon1">
+                <div class="input-group-append" id="button-addon4">
+                    <button class="btn btn-outline-secondary" type="button">+</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary">Fit</button>
+            <hr>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">$\chi^2$</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Chi-squared value" aria-label="Chisq"
+                    aria-describedby="basic-addon1" disabled>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        <div id="footer-content">
+            <p>Resources:</p>
+            <hr>
+            <p><a href="https://github.com/chartjs/Chart.js">Chart.js</a> used for plotting.</p>
+            <p><a href="https://github.com/Tom-Alexander/regression-js">regression.js</a> used for fitting.</p>
+            <p><a href="https://github.com/mathjax/MathJax-src">MathJax</a> used for mathematical display.</p>
+            <p><a href="https://getbootstrap.com/">Bootstrap</a> elements used for front design.</p>
+        </div>
+    </div>
+</body>
+<script src="scripts.js"></script>
+
+</html>

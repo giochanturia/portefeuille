@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap');
+
+body {
+    font-family: 'Cutive Mono', monospace;
+    position: relative;
+    padding: 0px;
+/*    -webkit-touch-callout: none; /* iOS Safari */
+/*    -webkit-user-select: none; /* Safari */
+/*     -khtml-user-select: none; /* Konqueror HTML */
+/*       -moz-user-select: none; /* Old versions of Firefox */
+/*        -ms-user-select: none; /* Internet Explorer/Edge */
+/*            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 50px;
+    /* margin: 10px auto; */
+    /* height: 90vh; */
+}
+
+#sidebar {
+    position: absolute;
+    height: 100%;
+    width: 300px;
+    top: 0px;
+    left: -300px;
+    padding: 20px;
+    background: rgba(0,0,0,.75);
+    color: white;
+}
+
+#sidebar-btn {
+    position: relative;
+    top: 0px;
+    left: 300px;
+    opacity: 50%;
+}
+
+#sidebar-content {
+    display: flex;
+    flex-direction: column;
+}
+
+span.parameter {
+    color: red;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    width: 100%;
+    border-top: 1px solid white;
+}
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    padding: 25px 50px;
+    background-color: rgba(0,0,0,.75);
+    color: white;
+    /* margin: 10px auto; */
+    /* height: 90vh; */
+}
+
+#footer a {
+    color: gray;
+}
+
+#footer a:hover {
+    color: white;
+}
