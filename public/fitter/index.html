@@ -35,8 +35,7 @@
     </div>
     <div id="sidebar">
         <button type="button" class="btn btn-light" id="sidebar-btn" onclick="toggleNav()" data-toggle="tooltip"
-            data-placement="right" title="Press 'S' to toggle sidebar."><img
-                src="/fitter/img/sidebar.svg"></button>
+            data-placement="right" title="Press 'S' to toggle sidebar."><img src="/fitter/img/sidebar.svg"></button>
         <div id="sidebar-content">
             <!-- <h3>Fitter</h3> -->
             <!-- DATA -->
@@ -53,9 +52,9 @@
             <!-- FUNCTION -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">Function:</label>
+                    <label class="input-group-text" for="functionSelect">Function:</label>
                 </div>
-                <select class="custom-select" id="inputGroupSelect01">
+                <select class="custom-select" id="functionSelect">
                     <option value="1" selected>Linear</option>
                     <option value="2">Polynomial</option>
                     <option value="3">Exponential</option>
@@ -63,41 +62,42 @@
                     <option value="5">Power</option>
                 </select>
             </div>
+            <!-- ORDER -->
+            <div class="input-group mb-3" id="order" style="display:none;">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect02">Order:</label>
+                </div>
+                <input type="number" class="form-control input-group-append" placeholder=""
+                    aria-label="Example text with button addon" aria-describedby="button-addon1" value="2"
+                    id="order-input" min="0" max="20">
+            </div>
             <center>
                 <p id="function-formula" style="margin: 0px;">$y = {\color{red}a}x + {\color{red}b}$</p>
             </center>
             <hr>
             <!-- PARAMETERS -->
             <p>Parameters:</p>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">$a$</label>
-                    <div class="input-group-text">
-                        <input type="checkbox" aria-label="Checkbox for following text input" checked>
+            <div id="parameters-container">
+                <div class="input-group mb-3" class="parameter-container">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text input-group-prepend">$a$</label>
+                        <div class="input-group-text" data-toggle="tooltip" data-placement="right" title="Parameter fixing not implemented yet.">
+                            <input type="checkbox" id="checkbox-a" class="input-group-text" onclick="toggleParameter('a')" checked disabled>
+                        </div>
                     </div>
-                    <button class="btn btn-outline-secondary" type="button">-</button>
+                    <input type="number" step="0.01" class="form-control input-group-append" id="a" disabled>
                 </div>
-                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
-                    aria-describedby="button-addon1">
-                <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary" type="button">+</button>
+                <div class="input-group mb-3" class="parameter-container">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text input-group-prepend">$b$</label>
+                        <div class="input-group-text" data-toggle="tooltip" data-placement="right" title="Parameter fixing not implemented yet.">
+                            <input type="checkbox" id="checkbox-b" class="input-group-text" onclick="toggleParameter('b')" checked disabled>
+                        </div>
+                    </div>
+                    <input type="number" step="0.01" class="form-control input-group-append" id="b" disabled>
                 </div>
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <label class="input-group-text" for="inputGroupSelect01">$b$</label>
-                    <div class="input-group-text">
-                        <input type="checkbox" aria-label="Checkbox for following text input" checked>
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">-</button>
-                </div>
-                <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon"
-                    aria-describedby="button-addon1">
-                <div class="input-group-append" id="button-addon4">
-                    <button class="btn btn-outline-secondary" type="button">+</button>
-                </div>
-            </div>
-            <button type="button" class="btn btn-danger">Fit</button>
+            <button type="button" class="btn btn-danger" style="margin-left: auto;">Fit</button>
             <hr>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -108,14 +108,15 @@
             </div>
         </div>
     </div>
+    </div>
     <div id="footer">
         <div id="footer-content">
             <p>Resources:</p>
             <hr>
             <p><a href="https://github.com/chartjs/Chart.js">Chart.js</a> used for plotting.</p>
             <p><a href="https://github.com/Tom-Alexander/regression-js">regression.js</a> used for fitting.</p>
-            <p><a href="https://github.com/mathjax/MathJax-src">MathJax</a> used for mathematical display.</p>
             <p><a href="https://getbootstrap.com/">Bootstrap</a> elements used for front design.</p>
+            <p><a href="https://github.com/mathjax/MathJax-src">MathJax</a> used for the display of equations.</p>
         </div>
     </div>
 </body>

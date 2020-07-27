@@ -32,6 +32,8 @@ body {
     padding: 20px;
     background: rgba(0,0,0,.75);
     color: white;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 #sidebar-btn {
@@ -64,6 +66,7 @@ hr {
     padding: 25px 50px;
     background-color: rgba(0,0,0,.75);
     color: white;
+    margin-top: auto;
     /* margin: 10px auto; */
     /* height: 90vh; */
 }
