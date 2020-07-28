@@ -71,10 +71,10 @@ hr {
     /* height: 90vh; */
 }
 
-#footer a {
+#footer a, #sidebar a {
     color: gray;
 }
 
-#footer a:hover {
+#footer a:hover, #sidebar a:hover {
     color: white;
 }

@@ -1,12 +1,41 @@
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip({
-        trigger: 'hover'
-    })
-})
+// CANVAS:
 
-MathJax = {
-    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
-};
+var ctx = document.getElementById('myChart').getContext('2d');
+var scatterChart = new Chart(ctx, {
+    type: 'scatter',
+    data: {
+        datasets: [{
+            label: 'Data',
+            backgroundColor: 'rgb(50,50,50)',
+            data: []
+        },{
+            label: 'Fit',
+            borderColor: 'rgb(255,50,50)',
+            backgroundColor: 'rgba(0,0,0,0)',
+            data: [],
+            type: 'line',
+            lineTension: 0,
+            pointRadius: 0
+        }]
+    },
+    options: {
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom'
+            }]
+        },
+        tooltips: {
+            filter: function (tooltipItem) {
+                return tooltipItem.datasetIndex === 0;
+            }
+        }
+    }
+});
+
+// EVERYTHING ELSE:
+
+var order = parseInt(document.getElementById("order-input").value);
 
 var formulas = [
     "$y = {\\color{red}a}x + {\\color{red}b}$",
@@ -24,7 +53,27 @@ var parameterFixed = [
     false, false
 ]
 
-var order = parseInt(document.getElementById("order-input").value);
+var datafile = null
+var raw_data = null
+var datapoints = []
+
+var minX = 0
+var maxX = 0
+var resX = 100
+
+var parameterValues = []
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger: 'hover'
+    })
+})
+
+MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+};
+
+// FRONT:
 
 function updateFormulas() {
     var ddl = document.getElementById("functionSelect");
@@ -78,15 +127,6 @@ function updateParameters() {
     })
 }
 
-function toggleParameter(p) {
-    const i = parameters.indexOf(p);
-    if (i !== -1) {
-        const fixed = !document.getElementById("checkbox-" + p).checked;
-        parameterFixed[i] = fixed;
-        document.getElementById(p).disabled = fixed;
-    }
-}
-
 document.getElementById("order-input").addEventListener("input", (e) => {
     if (document.getElementById("order-input").value === "") {
         document.getElementById("order-input").value = 0;
@@ -102,8 +142,57 @@ document.getElementById("order-input").addEventListener("input", (e) => {
     updateParameters();
 });
 
+function toggleParameter(p) { // NOT IMPLEMENTED YET.
+    const i = parameters.indexOf(p);
+    if (i !== -1) {
+        const fixed = !document.getElementById("checkbox-" + p).checked;
+        parameterFixed[i] = fixed;
+        document.getElementById(p).disabled = fixed;
+    }
+}
 
+// DATA:
 
+function checkForFilters(elem) {
+    return false; // TODO.
+}
+
+function plotData() {
+    for(elem of raw_data.data) {
+        datapoints.push({x: elem[document.getElementById("xSelect").value], y: elem[document.getElementById("ySelect").value]});
+    }
+    scatterChart.data.datasets[0].data = datapoints;
+    scatterChart.update();
+}
+
+function getData() {
+    dataFile = document.getElementById("csvFile").files[0]
+    if(dataFile !== undefined) {
+        Papa.parse(dataFile, {
+            header: true,
+            complete: function(results) {
+                raw_data = results;
+                document.getElementById("csvFileLabel").innerHTML = document.getElementById("csvFile").files[0].name;
+                var optionsHTML = ""
+                console.log(raw_data);
+                for(field of raw_data.meta.fields) {
+                    optionsHTML = optionsHTML + `
+                    <option value="${field}">${field}</option>`
+                }
+                document.getElementById("xSelect").innerHTML = optionsHTML;
+                document.getElementById("ySelect").innerHTML = optionsHTML;
+            }
+        });
+    } else {
+        window.alert("No file selected.");
+    }
+}
+
+// FIT:
+
+function fit() {
+    getData();
+}
 
 // SIDEBAR STUFF:
 
@@ -136,51 +225,57 @@ document.getElementById("functionSelect").addEventListener("change", (e) => {
     updateParameters();
 });
 
+document.getElementById("csvFile").addEventListener("change", (e) => {
+    getData();
+});
+
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 // - - - - - - - - - - - - - - - - - - - - - - - - -
 // CANVAS:
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var scatterChart = new Chart(ctx, {
-    type: 'scatter',
-    data: {
-        datasets: [{
-            label: 'Scatter Dataset',
-            backgroundColor: 'rgb(50,50,50)',
-            data: [
-                {x: 1,y: 4},
-                {x: 2,y: 5},
-                {x: 3,y: 6},
-                {x: 4,y: 7},
-                {x: 5,y: 8},
-                {x: 6,y: 9}
-            ]
-        },{
-            label: 'Line Dataset',
-            borderColor: 'rgb(255,50,50)',
-            backgroundColor: 'rgba(0,0,0,0)',
-            data: [
-                {x: 1,y: 4},
-                {x: 2,y: 5},
-                {x: 3,y: 6},
-                {x: 4,y: 7},
-                {x: 5,y: 8},
-                {x: 6,y: 9}
-            ],
-            type: 'line'
-        }]
-    },
-    options: {
-        scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom'
-            }]
-        },
-        tooltips: {
-            filter: function (tooltipItem) {
-                return tooltipItem.datasetIndex === 0;
-            }
-        }
-    }
-});
+// var ctx = document.getElementById('myChart').getContext('2d');
+// var scatterChart = new Chart(ctx, {
+//     type: 'scatter',
+//     data: {
+//         datasets: [{
+//             label: 'Data',
+//             backgroundColor: 'rgb(50,50,50)',
+//             data: [
+//                 {x: 1,y: 4},
+//                 {x: 2,y: 5},
+//                 {x: 3,y: 6},
+//                 {x: 4,y: 7},
+//                 {x: 5,y: 8},
+//                 {x: 6,y: 9}
+//             ]
+//         },{
+//             label: 'Fit',
+//             borderColor: 'rgb(255,50,50)',
+//             backgroundColor: 'rgba(0,0,0,0)',
+//             data: [
+//                 {x: 1,y: 4},
+//                 {x: 2,y: 5},
+//                 {x: 3,y: 6},
+//                 {x: 4,y: 7},
+//                 {x: 5,y: 8},
+//                 {x: 6,y: 8}
+//             ],
+//             type: 'line',
+//             lineTension: 0,
+//             pointRadius: 0
+//         }]
+//     },
+//     options: {
+//         scales: {
+//             xAxes: [{
+//                 type: 'linear',
+//                 position: 'bottom'
+//             }]
+//         },
+//         tooltips: {
+//             filter: function (tooltipItem) {
+//                 return tooltipItem.datasetIndex === 0;
+//             }
+//         }
+//     }
+// });
