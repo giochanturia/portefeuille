@@ -8,7 +8,7 @@ var scatterChart = new Chart(ctx, {
             label: 'Data',
             backgroundColor: 'rgb(50,50,50)',
             data: []
-        },{
+        }, {
             label: 'Fit',
             borderColor: 'rgb(255,50,50)',
             backgroundColor: 'rgba(0,0,0,0)',
@@ -55,11 +55,15 @@ var parameterFixed = [
 
 var datafile = null
 var raw_data = null
-var datapoints = []
+
+fields = []
+fieldsN = []
 
 var minX = 0
 var maxX = 0
 var resX = 100
+
+var baked_data = null
 
 var parameterValues = []
 
@@ -157,30 +161,68 @@ function checkForFilters(elem) {
     return false; // TODO.
 }
 
+function addData(chart, label, data) {
+    chart.data.labels.push(label);
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+    });
+    chart.update();
+}
+
+function removeData(chart) {
+    chart.data.labels.pop();
+    chart.data.datasets.forEach((dataset) => {
+        dataset.data.pop();
+    });
+    chart.update();
+}
+
 function plotData() {
-    for(elem of raw_data.data) {
-        datapoints.push({x: elem[document.getElementById("xSelect").value], y: elem[document.getElementById("ySelect").value]});
+    scatterChart.data.datasets[0].data = [];
+    baked_data = [];
+    minX = Infinity;
+    maxX = -Infinity;
+    for (elem of raw_data.data) {
+        // if(elem["Source"] !== "GCAG")   continue;
+        var xValue = elem[document.getElementById("xSelect").value];
+        var yValue = elem[document.getElementById("ySelect").value];
+        if(xValue > maxX) maxX = xValue;
+        if(xValue < minX) minX = xValue;
+        baked_data.push([xValue, yValue]);
+        scatterChart.data.datasets[0].data.push({ x: xValue, y: yValue });
     }
-    scatterChart.data.datasets[0].data = datapoints;
     scatterChart.update();
 }
 
 function getData() {
     dataFile = document.getElementById("csvFile").files[0]
-    if(dataFile !== undefined) {
+    if (dataFile !== undefined) {
         Papa.parse(dataFile, {
             header: true,
-            complete: function(results) {
-                raw_data = results;
+            complete: function (results) {
                 document.getElementById("csvFileLabel").innerHTML = document.getElementById("csvFile").files[0].name;
+                raw_data = results;
+                var numericFieldsN = 0;
                 var optionsHTML = ""
-                console.log(raw_data);
-                for(field of raw_data.meta.fields) {
-                    optionsHTML = optionsHTML + `
-                    <option value="${field}">${field}</option>`
+                for (field of raw_data.meta.fields) {
+                    var isFieldNumeric = !isNaN(raw_data.data[0][field]);
+                    if (isFieldNumeric) {
+                        numericFieldsN += 1;
+                        optionsHTML = optionsHTML + `
+                            <option value="${field}">${field}</option>`;
+                    }
+                    fields.push(field);
+                    fieldsN.push(isFieldNumeric);
                 }
-                document.getElementById("xSelect").innerHTML = optionsHTML;
-                document.getElementById("ySelect").innerHTML = optionsHTML;
+                if(numericFieldsN >= 2) {
+                    document.getElementById("xSelect").innerHTML = optionsHTML;
+                    // document.getElementById("xSelect").value = document.getElementById("xSelect").firstChild.value;
+                    document.getElementById("ySelect").innerHTML = optionsHTML;
+                    document.getElementById("ySelect").value = document.getElementById("ySelect").lastChild.value;
+                    plotData();
+                } else {
+                    window.alert("CSV file must contain at least 2 NUMERIC column.");
+                }
             }
         });
     } else {
@@ -227,6 +269,14 @@ document.getElementById("functionSelect").addEventListener("change", (e) => {
 
 document.getElementById("csvFile").addEventListener("change", (e) => {
     getData();
+});
+
+document.getElementById("xSelect").addEventListener("change", (e) => {
+    plotData();
+});
+
+document.getElementById("ySelect").addEventListener("change", (e) => {
+    plotData();
 });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - -
