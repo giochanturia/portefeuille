@@ -166,7 +166,6 @@
     linear: function linear(data, options) {
       var sum = [0, 0, 0, 0, 0];
       var len = 0;
-
       for (var n = 0; n < data.length; n++) {
         if (data[n][1] !== null) {
           len++;
@@ -178,8 +177,13 @@
         }
       }
 
+      console.log(sum);
+
       var run = len * sum[2] - sum[0] * sum[0];
       var rise = len * sum[3] - sum[0] * sum[1];
+     
+
+
       var gradient = run === 0 ? 0 : round(rise / run, options.precision);
       var intercept = round(sum[1] / len - gradient * sum[0] / len, options.precision);
 
@@ -214,6 +218,7 @@
       }
 
       var denominator = sum[1] * sum[2] - sum[5] * sum[5];
+      // if(denominator === 0) console.log("sdsfsdfsdfsdfsdf");
       var a = Math.exp((sum[2] * sum[3] - sum[5] * sum[4]) / denominator);
       var b = (sum[1] * sum[4] - sum[5] * sum[3]) / denominator;
       var coeffA = round(a, options.precision);

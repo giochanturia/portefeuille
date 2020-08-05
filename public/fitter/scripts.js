@@ -182,15 +182,17 @@ function plotData() {
     baked_data = [];
     minX = Infinity;
     maxX = -Infinity;
+
     for (elem of raw_data.data) {
         // if(elem["Source"] !== "GCAG")   continue;
         var xValue = elem[document.getElementById("xSelect").value];
         var yValue = elem[document.getElementById("ySelect").value];
         if(xValue > maxX) maxX = xValue;
         if(xValue < minX) minX = xValue;
-        baked_data.push([xValue, yValue]);
+        baked_data.push([parseInt(xValue), parseInt(100*parseFloat(yValue))]);
         scatterChart.data.datasets[0].data.push({ x: xValue, y: yValue });
     }
+    baked_data.pop();
     scatterChart.update();
 }
 
