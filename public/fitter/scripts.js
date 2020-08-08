@@ -1,5 +1,6 @@
 // CANVAS:
 
+
 var ctx = document.getElementById('myChart').getContext('2d');
 var scatterChart = new Chart(ctx, {
     type: 'scatter',
@@ -62,6 +63,7 @@ fieldsN = []
 var minX = 0
 var maxX = 0
 var resX = 100
+
 
 var baked_data = null
 
@@ -190,7 +192,7 @@ function plotData() {
         if(xValue > maxX) maxX = xValue;
         if(xValue < minX) minX = xValue;
         baked_data.push([parseInt(xValue), parseInt(100*parseFloat(yValue))]);
-        scatterChart.data.datasets[0].data.push({ x: xValue, y: yValue });
+        scatterChart.data.datasets[0].data.push({ x: xValue, y: 100*yValue });
     }
     baked_data.pop();
     scatterChart.update();
@@ -235,7 +237,52 @@ function getData() {
 // FIT:
 
 function fit() {
-    getData();
+    var ddl = document.getElementById("functionSelect");
+    var selectedValue = parseInt(ddl.options[ddl.selectedIndex].value);
+    if(selectedValue === 1){ 
+        /* linear */
+        const result = regression.linear(baked_data);
+        const gradient = parseFloat(result.equation[0]);
+        const yIntercept = parseFloat(result.equation[1]);
+        console.log(minX);
+        console.log(maxX);
+        for(var i = 1; i <= resX; i++){
+            var xValue = parseFloat(i*(maxX-minX)/resX) + parseFloat(minX);
+            var yValue = xValue * gradient + yIntercept;
+            scatterChart.data.datasets[1].data.push({ x: xValue, y: yValue });
+        }
+        scatterChart.update();
+    } else if(selectedValue === 2){
+        /* polynomial */
+        const result = regression.polynomial(baked_data);
+        //power უნდა წაიკითხო
+
+    } else if(selectedValue === 3){
+        /* exponential */
+        const result = regression.exponential(baked_data);
+        //ეს ახურებს და NaN-ებს აბრუნებს
+
+
+    } else if(selectedValue === 4){
+        /* logarithmic */
+        const result = regression.logarithmic(baked_data);
+        const a = parseFloat(result.equation[0]);
+        const b = parseFloat(result.equation[1]);
+        console.log(a);
+        console.log(b);
+        for(var i = 1; i <= resX; i++){
+            var xValue = parseFloat(i*(maxX-minX)/resX) + parseFloat(minX);
+            var yValue = a + b * Math.log(xValue);
+            console.log(xValue);
+            console.log(yValue);
+            scatterChart.data.datasets[1].data.push({ x: xValue, y: yValue });
+        }
+        scatterChart.update();
+    } else if(selectedValue === 5){
+        /* power */
+        const result = regression.power(baked_data);
+    }
+    
 }
 
 // SIDEBAR STUFF:

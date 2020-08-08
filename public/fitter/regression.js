@@ -218,7 +218,6 @@
       }
 
       var denominator = sum[1] * sum[2] - sum[5] * sum[5];
-      // if(denominator === 0) console.log("sdsfsdfsdfsdfsdf");
       var a = Math.exp((sum[2] * sum[3] - sum[5] * sum[4]) / denominator);
       var b = (sum[1] * sum[4] - sum[5] * sum[3]) / denominator;
       var coeffA = round(a, options.precision);
