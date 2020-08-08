@@ -177,8 +177,6 @@
         }
       }
 
-      console.log(sum);
-
       var run = len * sum[2] - sum[0] * sum[0];
       var rise = len * sum[3] - sum[0] * sum[1];
      
