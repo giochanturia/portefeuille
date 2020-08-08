@@ -6,10 +6,6 @@ var scatterChart = new Chart(ctx, {
     type: 'scatter',
     data: {
         datasets: [{
-            label: 'Data',
-            backgroundColor: 'rgb(50,50,50)',
-            data: []
-        }, {
             label: 'Fit',
             borderColor: 'rgb(255,50,50)',
             backgroundColor: 'rgba(0,0,0,0)',
@@ -17,6 +13,10 @@ var scatterChart = new Chart(ctx, {
             type: 'line',
             lineTension: 0,
             pointRadius: 0
+        }, {
+            label: 'Data',
+            backgroundColor: 'rgb(50,50,50)',
+            data: []
         }]
     },
     options: {
@@ -28,7 +28,7 @@ var scatterChart = new Chart(ctx, {
         },
         tooltips: {
             filter: function (tooltipItem) {
-                return tooltipItem.datasetIndex === 0;
+                return tooltipItem.datasetIndex === 1;
             }
         }
     }
@@ -37,6 +37,7 @@ var scatterChart = new Chart(ctx, {
 // EVERYTHING ELSE:
 
 var order = parseInt(document.getElementById("order-input").value);
+var precision = parseInt(document.getElementById("precision-input").value);
 
 var formulas = [
     "$y = {\\color{red}a}x + {\\color{red}b}$",
@@ -62,7 +63,7 @@ fieldsN = []
 
 var minX = 0
 var maxX = 0
-var resX = 100
+var resX = 200
 
 
 var baked_data = null
@@ -121,17 +122,31 @@ function updateParameters() {
                         <input type="checkbox" id="checkbox-${p}" class="input-group-text" onclick="toggleParameter('${p}')" checked disabled>
                     </div>
                 </div>
-                <input type="number" step="0.01" class="form-control input-group-append" id="${p}" disabled>
+                <input type="text" class="form-control input-group-append" id="${p}" disabled>
             </div>
-        `;
+        `; // When parameter-fixing is implemented, change the input type to number with appropriate steps.
     }
-    // console.log(parametersHTML);
     document.getElementById("parameters-container").innerHTML = parametersHTML;
+    // document.getElementById("chisq").value = "";
     MathJax.typeset();
     $('[data-toggle="tooltip"]').tooltip({
         trigger: 'hover'
     })
 }
+
+document.getElementById("precision-input").addEventListener("input", (e) => {
+    if (document.getElementById("precision-input").value === "") {
+        document.getElementById("precision-input").value = 2;
+    }
+    else if (document.getElementById("precision-input").value > 100) {
+        document.getElementById("precision-input").value = 100;
+    } else if (document.getElementById("precision-input").value < 2) {
+        document.getElementById("precision-input").value = 2;
+    } else {
+        document.getElementById("precision-input").value = parseInt(document.getElementById("precision-input").value);
+    }
+    precision = parseInt(document.getElementById("precision-input").value);
+});
 
 document.getElementById("order-input").addEventListener("input", (e) => {
     if (document.getElementById("order-input").value === "") {
@@ -181,21 +196,27 @@ function removeData(chart) {
 
 function plotData() {
     scatterChart.data.datasets[0].data = [];
+    scatterChart.data.datasets[1].data = [];
     baked_data = [];
     minX = Infinity;
     maxX = -Infinity;
 
-    for (elem of raw_data.data) {
-        // if(elem["Source"] !== "GCAG")   continue;
-        var xValue = elem[document.getElementById("xSelect").value];
-        var yValue = elem[document.getElementById("ySelect").value];
-        if(xValue > maxX) maxX = xValue;
-        if(xValue < minX) minX = xValue;
-        baked_data.push([parseInt(xValue), parseInt(100*parseFloat(yValue))]);
-        scatterChart.data.datasets[0].data.push({ x: xValue, y: 100*yValue });
+
+    for (var i = 0; i < raw_data.data.length - 1; i++) {
+        elem = raw_data.data[i];
+        var xValue = parseFloat(elem[document.getElementById("xSelect").value]);
+        var yValue = parseFloat(elem[document.getElementById("ySelect").value]);
+        if (xValue > maxX) maxX = xValue;
+        if (xValue < minX) minX = xValue;
+        baked_data.push([xValue, yValue]);
+        scatterChart.data.datasets[1].data.push({ x: xValue, y: yValue });
     }
-    baked_data.pop();
     scatterChart.update();
+
+    document.getElementById("chisq").value = "";
+    for (var i = 0; i < parameters.length; i++) {
+        document.getElementById(parameters[i]).value = "";
+    }
 }
 
 function getData() {
@@ -218,7 +239,7 @@ function getData() {
                     fields.push(field);
                     fieldsN.push(isFieldNumeric);
                 }
-                if(numericFieldsN >= 2) {
+                if (numericFieldsN >= 2) {
                     document.getElementById("xSelect").innerHTML = optionsHTML;
                     // document.getElementById("xSelect").value = document.getElementById("xSelect").firstChild.value;
                     document.getElementById("ySelect").innerHTML = optionsHTML;
@@ -239,50 +260,48 @@ function getData() {
 function fit() {
     var ddl = document.getElementById("functionSelect");
     var selectedValue = parseInt(ddl.options[ddl.selectedIndex].value);
-    if(selectedValue === 1){ 
+    var result;
+    if (selectedValue === 1) {
         /* linear */
-        const result = regression.linear(baked_data);
-        const gradient = parseFloat(result.equation[0]);
-        const yIntercept = parseFloat(result.equation[1]);
-        console.log(minX);
-        console.log(maxX);
-        for(var i = 1; i <= resX; i++){
-            var xValue = parseFloat(i*(maxX-minX)/resX) + parseFloat(minX);
-            var yValue = xValue * gradient + yIntercept;
-            scatterChart.data.datasets[1].data.push({ x: xValue, y: yValue });
-        }
-        scatterChart.update();
-    } else if(selectedValue === 2){
+        result = regression.linear(baked_data, { precision: precision });
+    } else if (selectedValue === 2) {
         /* polynomial */
-        const result = regression.polynomial(baked_data);
-        //power უნდა წაიკითხო
-
-    } else if(selectedValue === 3){
+        result = regression.polynomial(baked_data, { order: order, precision: precision });
+    } else if (selectedValue === 3) {
         /* exponential */
-        const result = regression.exponential(baked_data);
-        //ეს ახურებს და NaN-ებს აბრუნებს
-
-
-    } else if(selectedValue === 4){
+        result = regression.exponential(baked_data, { precision: precision });
+    } else if (selectedValue === 4) {
         /* logarithmic */
-        const result = regression.logarithmic(baked_data);
-        const a = parseFloat(result.equation[0]);
-        const b = parseFloat(result.equation[1]);
-        console.log(a);
-        console.log(b);
-        for(var i = 1; i <= resX; i++){
-            var xValue = parseFloat(i*(maxX-minX)/resX) + parseFloat(minX);
-            var yValue = a + b * Math.log(xValue);
-            console.log(xValue);
-            console.log(yValue);
-            scatterChart.data.datasets[1].data.push({ x: xValue, y: yValue });
-        }
-        scatterChart.update();
-    } else if(selectedValue === 5){
+        result = regression.logarithmic(baked_data, { precision: precision });
+    } else if (selectedValue === 5) {
         /* power */
-        const result = regression.power(baked_data);
+        result = regression.power(baked_data, { precision: precision });
     }
-    
+
+    scatterChart.data.datasets[0].data = []
+    for (var i = 1; i <= resX; i++) {
+        var xValue = parseFloat(i * (maxX - minX) / resX) + parseFloat(minX);
+        var yValue = result.predict(xValue)[1];
+        scatterChart.data.datasets[0].data.push({ x: xValue, y: yValue });
+    }
+    scatterChart.update();
+
+    for (var i = 0; i < parameters.length; i++) {
+        // regression.polynomial returns parameters in inversed order, so:
+        var _i = selectedValue !== 2 ? i : parameters.length - 1 - i;
+        document.getElementById(parameters[i]).value = result.equation[_i].toPrecision(5);
+    }
+
+    // Chi-squared:
+    var dof = baked_data.length - parameters.length
+    var chisq = 0;
+    for (var i = 0; i < baked_data.length; i++) {
+        const observed = baked_data[i][1]
+        const expected = result.predict(baked_data[i][0])[1]
+        chisq += Math.pow(observed - expected, 2)/expected
+    }
+    chisq = chisq / dof;
+    document.getElementById("chisq").value = chisq.toPrecision(10);
 }
 
 // SIDEBAR STUFF:

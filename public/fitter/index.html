@@ -76,8 +76,18 @@
             </p>
             <div class="collapse" id="filters">
                 <!-- Filled with JS -->
+                <p>Not implemented yet.</p>
             </div>
             <hr>
+            <!-- PRECISION -->
+            <div class="input-group mb-3" id="precision">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="precisionSelect">Precision:</label>
+                </div>
+                <input type="number" class="form-control input-group-append" placeholder=""
+                    aria-label="Example text with button addon" aria-describedby="button-addon1" value="75"
+                    id="precision-input" min="2" max="100">
+            </div>
             <!-- FUNCTION -->
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -116,7 +126,7 @@
                                 onclick="toggleParameter('a')" checked disabled>
                         </div>
                     </div>
-                    <input type="number" step="0.01" class="form-control input-group-append" id="a" disabled>
+                    <input type="text" class="form-control input-group-append" id="a" disabled>
                 </div>
                 <div class="input-group mb-3" class="parameter-container">
                     <div class="input-group-prepend">
@@ -127,17 +137,17 @@
                                 onclick="toggleParameter('b')" checked disabled>
                         </div>
                     </div>
-                    <input type="number" step="0.01" class="form-control input-group-append" id="b" disabled>
+                    <input type="text" class="form-control input-group-append" id="b" disabled>
                 </div>
             </div>
-            <button type="button" onclick="fit()" class="btn btn-danger" style="margin-left: auto;">Fit</button>
+            <button type="button" onclick="fit()" class="btn btn-danger" style="width: 100%; margin: auto;">Fit</button>
             <hr>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">$\chi^2$</span>
+                    <span class="input-group-text" id="chisq-field">$\chi^2$</span>
                 </div>
                 <input type="text" class="form-control" placeholder="Chi-squared value" aria-label="Chisq"
-                    aria-describedby="basic-addon1" disabled>
+                    aria-describedby="chisq-field" id="chisq" disabled>
             </div>
         </div>
     </div>
