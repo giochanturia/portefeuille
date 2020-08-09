@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>Bike</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <!--- Link to the last version of BabylonJS --->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <link rel="stylesheet" href="/bike/styles.css">
+</head>
+
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <div id="sidebar">
+        <div id="sidebar-content">
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Brakes')">
+                    Brakes</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Cassette')">
+                    Cassette</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Chain')">
+                    Chain</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Derailleur_Front')">
+                    Derailleur (front)</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Derailleur_Rear')">
+                    Derailleur (rear)</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Disk_Brake')">
+                    Disk Brakes</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Fenders')">
+                    Fenders</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Frame')">
+                    Frame</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Grip')">
+                    Grip</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Handlebar')">
+                    Handlebar</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Lights')">
+                    Lights</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Nuts')">
+                    Nuts and Bolts</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Pedals')">
+                    Pedals</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Pedal_Crankset')">
+                    Pedal Crankset</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Seat')">
+                    Seat</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Seatpost')">
+                    Seatpost</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Suspension_Fork')">
+                    Suspension Fork</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Tires')">
+                    Tires</button>
+                <button type="button" class="btn btn-outline-dark" onclick="emphasizeMesh('Wheels')">
+                    Wheels</button>
+            </div>
+        </div>
+    </div>
+    <script src="/bike/scripts.js"></script>
+</body>
+
+</html>
