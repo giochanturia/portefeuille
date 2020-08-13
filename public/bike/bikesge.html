@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <title>Bike</title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <!--- Link to the last version of BabylonJS --->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+    <link rel="stylesheet" href="/bike/bikesge.css">
+</head>
+
+<body>
+    <div id="container">
+        <center>
+            <canvas id="renderCanvas"></canvas>
+        </center>
+        <div id="sidebar-1">
+            <div class="sidebar-content">
+                <a href="#" onmouseover="emphasizeMesh('Brakes')">
+                    სამუხრუჭე სისტემა</a>
+                <a href="#" onmouseover="emphasizeMesh('Cassette')">
+                    ძრავი</a>
+                <a href="#" onmouseover="emphasizeMesh('Chain')">
+                    ჯაჭვი</a>
+                <a href="#" onmouseover="emphasizeMesh('Derailleur_Front')">
+                    წინა გადამრთველი</a>
+                <a href="#" onmouseover="emphasizeMesh('Derailleur_Rear')">
+                    უკანა გადამრთველი</a>
+                <a href="#" onmouseover="emphasizeMesh('Disk_Brake')">
+                    დისკის მუხრუჭები</a>
+                <a href="#" onmouseover="emphasizeMesh('Fenders')">
+                    წვიმისგან დამცავი</a>
+                <a href="#" onmouseover="emphasizeMesh('Frame')">
+                    ჩარჩო</a>
+                <a href="#" onmouseover="emphasizeMesh('Grip')">
+                    სახელურები</a>
+                <a href="#" onmouseover="emphasizeMesh('Handlebar')">
+                    საჭე</a>
+            </div>
+        </div>
+        <div id="sidebar-2">
+            <div class="sidebar-content">
+                <a href="#" onmouseover="emphasizeMesh('Lights')">
+                    განათება</a>
+                <a href="#" onmouseover="emphasizeMesh('Nuts')">
+                    ბოლტები</a>
+                <a href="#" onmouseover="emphasizeMesh('Pedals')">
+                    პედლები</a>
+                <a href="#" onmouseover="emphasizeMesh('Pedal_Crankset')">
+                    პედლის დამჭერი</a>
+                <a href="#" onmouseover="emphasizeMesh('Seat')">
+                    სკამი</a>
+                <a href="#" onmouseover="emphasizeMesh('Seatpost')">
+                    სკამის დამჭერი</a>
+                <a href="#" onmouseover="emphasizeMesh('Suspension_Fork')">
+                    ჩანგალი</a>
+                <a href="#" onmouseover="emphasizeMesh('Tires')">
+                    საბურავები</a>
+                <a href="#" onmouseover="emphasizeMesh('Wheels')">
+                    ბორბლები</a>
+            </div>
+        </div>
+    </div>
+    <script src="/bike/bikesge.js"></script>
+</body>
+
+</html>

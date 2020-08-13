@@ -27,19 +27,6 @@ function emphasizeMesh(meshName) {
     onMesh(meshName);
 }
 
-var componentSelectors = document.querySelectorAll("#sidebar a");
-
-componentSelectors.forEach(function(elem) {
-    elem.addEventListener("mouseover", function() {
-        componentSelectors.forEach(function(others) {
-            others.classList.remove("hover");
-        });
-        elem.classList.add("hover");
-        var mesh = elem.getAttribute("data-component");
-        emphasizeMesh(mesh);
-    });
-});
-
 BABYLON.SceneLoader.Load("/bike/assets/", "bike.glb", engine, function (scene) {
 
     // CAMERA:
@@ -56,19 +43,21 @@ BABYLON.SceneLoader.Load("/bike/assets/", "bike.glb", engine, function (scene) {
     // MATERIALS:
 
     offMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
-    offMaterial.diffuseColor = new BABYLON.Color3(.1, .1, .1);
-    offMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
+    offMaterial.diffuseColor = new BABYLON.Color3(.3, .3, .3);
+    // offMaterial.specularColor = new BABYLON.Color3(.4, .4, .4);
+    offMaterial.metalic = 1;
+    offMaterial.roughness = 1;
 
     onMaterial = new BABYLON.StandardMaterial("myMaterial", scene);
-    onMaterial.diffuseColor = new BABYLON.Color3(1, .2, 0);
+    onMaterial.diffuseColor = new BABYLON.Color3(.9, .3, .3);
     onMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
-    onMaterial.emissiveColor = new BABYLON.Color3(1, .2, 0);
+    onMaterial.emissiveColor = new BABYLON.Color3(.9, 0, 0);
 
     // LIGHT and BG:
 
     var light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
 
-    scene.clearColor = new BABYLON.Color3(0.1, 0.1, 0.1);
+    scene.clearColor = new BABYLON.Color3(1, 1, 1);
     // scene.useRightHandedSystem = true;
 
     var gl = new BABYLON.GlowLayer("glow", scene);
