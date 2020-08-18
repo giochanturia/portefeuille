@@ -36,4 +36,12 @@
 
 .container button {
     border: none;
+    transition:all 0.1s;
+}
+
+.button-pressed{
+    /*  ნიგა ეს შეცვალე თუ გინდა */
+    border: 3px solid yellow;
+	box-shadow: 0 0 10px #EFF55D;
+	transform:scale(1.2); 
 }
