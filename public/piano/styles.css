@@ -36,7 +36,7 @@
 
 .container button {
     border: none;
-    transition:all 0.1s;
+    transition:all 0.07s;
 }
 
 .button-pressed{
