@@ -14,44 +14,72 @@
 <body>
     <div class="container">
         <div class="piano-white">
-            <button type="button" class="btn btn-light">Q</button>
-            <button type="button" class="btn btn-light">W</button>
-            <button type="button" class="btn btn-light">E</button>
-            <button type="button" class="btn btn-light">R</button>
-            <button type="button" class="btn btn-light">T</button>
-            <button type="button" class="btn btn-light">Y</button>
-            <button type="button" class="btn btn-light">U</button>
-            <button type="button" class="btn btn-light">V</button>
-            <button type="button" class="btn btn-light">B</button>
-            <button type="button" class="btn btn-light">N</button>
-            <button type="button" class="btn btn-light">M</button>
-            <button type="button" class="btn btn-light">,</button>
-            <button type="button" class="btn btn-light">.</button>
-            <button type="button" class="btn btn-light">/</button>
+            <button data-key = "81" type="button" class="btn btn-light">Q</button>
+            <button data-key = "87" type="button" class="btn btn-light">W</button>
+            <button data-key = "69" type="button" class="btn btn-light">E</button>
+            <button data-key = "82" type="button" class="btn btn-light">R</button>
+            <button data-key = "84" type="button" class="btn btn-light">T</button>
+            <button data-key = "89" type="button" class="btn btn-light">Y</button>
+            <button data-key = "85" type="button" class="btn btn-light">U</button>
+            <button data-key = "86" type="button" class="btn btn-light">V</button>
+            <button data-key = "66" type="button" class="btn btn-light">B</button>
+            <button data-key = "78" type="button" class="btn btn-light">N</button>
+            <button data-key = "77" type="button" class="btn btn-light">M</button>
+            <button data-key = "188" type="button" class="btn btn-light">,</button>
+            <button data-key = "190" type="button" class="btn btn-light">.</button>
+            <button data-key = "191" type="button" class="btn btn-light">/</button>
         </div>
         <div class="piano-black">
             <span style="width:35px;"></span>
-            <button type="button" class="btn btn-dark">2</button>
+            <button data-key = "50" type="button" class="btn btn-dark">2</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">3</button>
+            <button data-key = "51" type="button" class="btn btn-dark">3</button>
             <span style="width:70px;"></span>
-            <button type="button" class="btn btn-dark">5</button>
+            <button data-key = "53" type="button" class="btn btn-dark">5</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">6</button>
+            <button data-key = "54" type="button" class="btn btn-dark">6</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">7</button>
+            <button data-key = "55" type="button" class="btn btn-dark">7</button>
             <span style="width:70px;"></span>
-            <button type="button" class="btn btn-dark">G</button>
+            <button data-key = "71" type="button" class="btn btn-dark">G</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">H</button>
+            <button data-key = "72" type="button" class="btn btn-dark">H</button>
             <span style="width:70px;"></span>
-            <button type="button" class="btn btn-dark">K</button>
+            <button data-key = "75" type="button" class="btn btn-dark">K</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">L</button>
+            <button data-key = "76" type="button" class="btn btn-dark">L</button>
             <span style="width:20px;"></span>
-            <button type="button" class="btn btn-dark">;</button>
+            <button data-key = "186" type="button" class="btn btn-dark">;</button>
             <span style="width:35px;"></span>
         </div>
     </div>
+
+    <audio data-key = "81" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "87" src = "/piano/sounds/2.mp3"></audio>
+    <audio data-key = "69" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "82" src = "/piano/sounds/4.mp3"></audio>
+    <audio data-key = "84" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "89" src = "/piano/sounds/2.mp3"></audio>
+    <audio data-key = "85" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "86" src = "/piano/sounds/4.mp3"></audio>
+    <audio data-key = "66" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "78" src = "/piano/sounds/2.mp3"></audio>
+    <audio data-key = "77" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "188" src = "/piano/sounds/4.mp3"></audio>
+    <audio data-key = "190" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "191" src = "/piano/sounds/2.mp3"></audio>
+
+    <audio data-key = "50" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "51" src = "/piano/sounds/4.mp3"></audio>
+    <audio data-key = "53" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "54" src = "/piano/sounds/2.mp3"></audio>
+    <audio data-key = "55" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "71" src = "/piano/sounds/4.mp3"></audio>
+    <audio data-key = "72" src = "/piano/sounds/1.mp3"></audio>
+    <audio data-key = "75" src = "/piano/sounds/2.mp3"></audio>
+    <audio data-key = "76" src = "/piano/sounds/3.mp3"></audio>
+    <audio data-key = "186" src = "/piano/sounds/4.mp3"></audio>
+
+    <script type="text/javascript" src="/piano/scripts.js"></script>
 </body>
 </html>
